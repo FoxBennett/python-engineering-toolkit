@@ -1,0 +1,7 @@
+# The test fixtures deliberately contain CRLF, mixed endings and a missing
+# final newline. Git must not normalise any of that, or line_endings would
+# report the fixtures as violations of a convention they exist to demonstrate.
+#
+# -text disables every end-of-line conversion. Diffs still work; the bytes in
+# the repository are the bytes on disk.
+* -text

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qakit"
+version = "1.0.0"
+description = "Quality checks that make written engineering rules enforceable. Standard library only."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Fox Bennett" }]
+keywords = ["code-quality", "static-analysis", "linting", "pre-commit", "ast"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = []
+
+[project.urls]
+Source = "https://github.com/foxbennett/python-engineering-toolkit"
+
+[tool.setuptools]
+packages = ["qakit"]

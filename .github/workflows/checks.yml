@@ -1,0 +1,37 @@
+name: quality checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+
+      - name: This project must pass its own checks
+        run: python -m qakit.precommit --root qakit
+
+      - name: Clean example must produce zero findings
+        run: python -m qakit.precommit --root example/clean
+
+      - name: Fixtures must still be detected as violations
+        run: |
+          if python -m qakit.precommit --root example/fixtures; then
+            echo "::error::the fixtures should have been reported"
+            exit 1
+          fi
+
+      - name: Windows-only module must still import cleanly
+        run: python -c "from qakit import quiet_launch; print(quiet_launch.quiet_startupinfo())"
